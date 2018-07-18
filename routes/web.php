@@ -51,6 +51,10 @@ Route::get('users/logout', 'Auth\LoginController@logout');
 
 Route::get('users/login', 'Auth\LoginController@showLoginForm') ->name('login');
 
+Route::get('/blog', 'BlogController@index');
+
+Route::get('/blog/{slug?}', 'BlogController@show');
+
 Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'manager')
 , function () {
 	Route::get('users', [ 'as' => 'admin.user.index', 'uses' =>'UsersController@index']);
@@ -60,6 +64,14 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::get('users/{id}/edit', 'UsersController@edit');
 	Route::post('users/{id}/edit','UsersController@update');
 	Route::get('/', 'PagesController@home');
+	Route::get('posts', 'PostsController@index');
+	Route::get('posts/create', 'PostsController@create');
+	Route::post('posts/create', 'PostsController@store');
+	Route::get('posts/{id?}/edit', 'PostsController@edit');
+	Route::post('posts/{id?}/edit','PostsController@update');
+	Route::get('categories', 'CategoriesController@index');
+	Route::get('categories/create', 'CategoriesController@create');
+	Route::post('categories/create', 'CategoriesController@store');
 });
 
 //Post
